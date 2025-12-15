@@ -1,0 +1,157 @@
+/* Reset básico e fonte moderna */
+body {
+    font-family: 'Poppins', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #eef2f5;
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+}
+
+/* O "Card" principal da aplicação */
+.container {
+    background-color: white;
+    width: 400px;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* Área de input e botão alinhados */
+.controles {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+input {
+    font-family: 'Poppins', Tahoma, Geneva, Verdana, sans-serif;
+    flex-grow: 1;
+    /* O input ocupa o espaço que sobrar */
+    padding: 12px;
+    border: 2px solid #ddd;
+    border-radius: 5px;
+    outline: none;
+    transition: 0.3s;
+}
+
+input:focus {
+    border-color: #007bff;
+}
+
+.adicionar {
+    padding: 12px 20px;
+    background-color: #007bff;
+    /* Azul Profissional */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.2s;
+    font-family: 'Poppins', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.adicionar:hover {
+    background-color: #0056b3;
+}
+
+/* Lista de Itens */
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+li {
+    background: #fff;
+    border-bottom: 1px solid #eee;
+    padding: 15px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    animation: surgir 0.3s ease-in-out;
+    /* Pequena animação ao criar */
+}
+
+li span {
+    font-size: 16px;
+    color: #555;
+}
+
+li small {
+    display: block;
+    font-size: 11px;
+    color: #999;
+    margin-top: 4px;
+}
+
+.concluir {
+    background-color: transparent;
+    color: #229200;
+    border: 1px solid #229200;
+    padding: 5px 10px;
+    border-radius: 50%;
+    /* Botão redondo */
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.concluir:hover {
+    background-color: #229200;
+    color: white;
+}
+
+/* Animação simples (Keyframes) */
+@keyframes surgir {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Adiciona isto no teu CSS */
+.riscado {
+    text-decoration: line-through;
+    opacity: 0.6;
+    background-color: #e6ffe6;
+    /* Um verde muito clarinho */
+}
+
+/* Vamos criar estilos para dois botões diferentes */
+.btn-acao {
+    border: none;
+    padding: 8px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 5px;
+    color: white;
+    transition: 0.2s;
+}
+
+.btn-check {
+    background-color: #28a745;
+}
+
+/* Verde para concluir */
+.btn-check:hover {
+    background-color: #229200;
+}
+
+.btn-delete {
+    background-color: #dc3545;
+}
+
+/* Vermelho para apagar */
+.btn-delete:hover {
+    background-color: #c82333;
+}
