@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Gerenciador de Estudos</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="container">
+        <h2>📚 Meus Estudos</h2>
+
+        <div class="controles">
+            <input type="text" id="inputTopico" placeholder="O que vamos estudar?" contenteditable="true">
+            <button onclick="adicionarEstudo()" class="adicionar" contenteditable="false">Adicionar</button>
+        </div>
+
+        <ul id="listaEstudos"></ul>
+    </div>
+    <ul id="tarefasConcluidas"></ul>
+
+    <script src="funcoes.js">
+    </script>
+</body>
+
+</html>
