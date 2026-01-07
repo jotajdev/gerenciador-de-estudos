@@ -71,7 +71,7 @@ function carregarLista() {
 
     // O .map vai criar um novo array apenas com os texto HTML
 
-    let itensHTML = meusDados.map((item, index) => {
+    let itensHTML = meusDados.map((item) => {
 
         // Define se está riscado ou não
         let classeCss = item.concluido ? "riscado" : "";
