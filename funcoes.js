@@ -4,6 +4,7 @@ let meusDados = JSON.parse(localStorage.getItem("listaSalva")) || [];
 
 // Inicializa a aplicação
 carregarLista();
+carregarDadosGithub();
 
 // Escuta a tecla Enter
 document.getElementById("inputTopico").addEventListener("keypress", function (event) {
@@ -89,4 +90,26 @@ function carregarLista() {
     });
     // O .join('') pega o array de textos e cola tudo numa string só, vírgulas
     lista.innerHTML = itensHTML.join("");
+}
+
+function carregarDadosGithub(){
+
+    const usuario = "jotajdev";
+
+    // Através desse linha, o programa sai do navegador e vai até o servidor buscar esses dados. O fetch não devolve um dado imediatamente, mas sim uma promessa.
+    fetch(`https://api.github.com/users/${usuario}`)
+        .then(resposta => resposta.json()) // Essa linha basicamente diz: "então, quando a resposta chegar..." a parte ".json() transforma a resposta para o formato JSON, que conseguimos ler." 
+        .then(dados => { // É necessária a utilização do then, pois essa transformação demora um pequeno tempinho. Quando ela acontece, ela vai para dentro de "dados"
+            // Pegando elementos do HTML
+            let imagem = document.getElementById("avatar");
+            let nome = document.getElementById("nomeUsuario");
+
+            // Colocando os dados que vieram da API
+            nome.innerText = dados.name; // Pega o nome real (não o login)
+            imagem.src = dados.avatar_url; // Pega o link da foto
+            imagem.style.display = "inline-block"; // Faz a imagem aparecer
+        })
+        .catch(erro => {
+            console.erro("Erro ao buscar GitHub", erro)
+        });
 }
