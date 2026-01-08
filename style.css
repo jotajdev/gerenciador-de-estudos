@@ -312,3 +312,26 @@ li small {
 .btn-delete:hover {
     background-color: #c82333;
 }
+
+/* --- ESTILOS DO PERFIL (API GITHUB) --- */
+.perfil-container {
+    text-align: center;
+    margin-bottom: 20px;
+    animation: surgir 0.5s ease-in-out;
+}
+
+#avatar {
+    width: 80px;
+    height: 80px; /* Garante que fica quadrado/redondo */
+    border-radius: 50%;
+    border: 3px solid #007bff; /* Bordinha azul estilosa */
+    display: none; /* Começa escondido */
+    object-fit: cover; /* Garante que a foto não estica */
+    margin-bottom: 10px;
+}
+
+#nomeUsuario {
+    font-size: 1.2rem;
+    color: #444;
+    margin: 0;
+}
