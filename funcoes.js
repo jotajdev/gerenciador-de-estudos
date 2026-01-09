@@ -14,7 +14,7 @@ document.getElementById("inputTopico").addEventListener("keypress", function (ev
 
 const salvarERenderizar = () => {
     // SALVAR NO NAVEGADOR
-    // O "localStorage" só aceita texto. O JSON.stringfy transforma o objeto em texto.
+    // O "localStorage" só aceita texto. O JSON.stringfy transforma o objeto JSON em texto.
     localStorage.setItem("listaSalva", JSON.stringify(meusDados));
     carregarLista();
 }
@@ -96,6 +96,14 @@ async function carregarDadosGithub() {
 
     const usuario = "jotajdev";
 
+    const imagem = document.getElementById("avatar");
+    const nome = document.getElementById("nomeUsuario");
+    const loader = document.getElementById("loading");
+
+    // 1.Liga o loading
+    loader.style.display = "block";
+    nome.innerText = "";
+
     try {
         // Através desse linha, o programa sai do navegador e vai até o servidor buscar esses dados. 
         // O fetch não devolve um dado imediatamente, mas sim uma promessa.
@@ -117,6 +125,10 @@ async function carregarDadosGithub() {
             nome.innerText = "Usuário não encontrado!"
         }
     } catch (erro) {
-        console.erro("Erro ao buscar GitHub", erro)
-    };
+        console.error("Erro ao buscar GitHub", erro);
+        nome.innerText = "Erro ao carregar o perfil!";
+    } finally {
+        // Desliga o loading
+        loader.style.display = "none"
+    }
 }

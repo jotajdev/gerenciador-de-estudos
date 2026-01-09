@@ -335,3 +335,17 @@ li small {
     color: #444;
     margin: 0;
 }
+
+#loading {
+    font-weight: bold;
+    color: #007bff;
+    margin: 20px 0;
+    /* Uma animação simples de piscar */
+    animation: piscar 1s infinite;
+}
+
+@keyframes piscar {
+    0% { opacity: 0.2; }
+    50% { opacity: 1; }
+    100% { opacity: 0.2; }
+}
