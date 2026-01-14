@@ -1,10 +1,57 @@
 // Tenta pegar o que já está salvo. Caso não exista, através do operador "||" ele cria um novo.
-// "JSON.parse" serve para transformar o texto do navegador em código JavaScript
-let meusDados = JSON.parse(localStorage.getItem("listaSalva")) || [];
+
+
+// Model
+const estudosRepository = {
+    dados: [],
+
+    // Carrega os dados do "banco" (LocalStorage) para a memória
+    inicializar: function() {
+        const dadosSalvos = localStorage.getItem("meusEstudos");
+        if(dadosSalvos){
+            this.dados = JSON.parse(dadosSalvos) // "JSON.parse" serve para transformar o texto do navegador em código JavaScript
+        }else{
+            this.dados = []
+        }
+    },
+
+    // Adiciona no array e salva
+    adicionar: function(novoEstudo) {
+        this.dados.push(novoEstudo)
+        this.salvar();
+    },
+
+    // Remove do array e salva
+    // A lista mantem todos, EXCETO o que tem o ID clicado
+    remover: function(id) {
+        this.dados = this.dados.filter(item => item.id !== id);
+        this.salvar();
+    },
+
+    // Marca e desmarca como concluído
+    // O item que tem o ID igual ao que foi clicado é alterado
+    alternarStatus: function(id) {
+        this.dados = this.dados.map(item =>{
+            if(item.id == id){
+                return {...item, concluido: !item.concluido};
+            };
+            return item;
+        });
+        this.salvar();
+    },
+
+    // Salva a memória no Local
+    salvar: function() {
+        localStorage.setItem("meusEstudos", JSON.stringify(this.dados))
+    }
+}
 
 // Inicializa a aplicação
-carregarLista();
-carregarDadosGithub();
+const iniciarSistema = () => {
+    estudosRepository.inicializar();
+    carregarLista();
+    carregarDadosGithub();
+}
 
 // Escuta a tecla Enter
 document.getElementById("inputTopico").addEventListener("keypress", function (event) {
@@ -12,21 +59,14 @@ document.getElementById("inputTopico").addEventListener("keypress", function (ev
         adicionarEstudo()
 })
 
-const salvarERenderizar = () => {
-    // SALVAR NO NAVEGADOR
-    // O "localStorage" só aceita texto. O JSON.stringfy transforma o objeto JSON em texto.
-    localStorage.setItem("listaSalva", JSON.stringify(meusDados));
-    carregarLista();
-}
-
 const adicionarEstudo = () => {
     let input = document.getElementById("inputTopico");
     let texto = input.value;
-    const escreveAlgo = () => alert("Por favor, escreve algo para estudar!")
 
     // A função trim() tira todos os espaços em branco e, nessse caso, está comparando com uma string fazia. Se ela comparação for igual, significa que, ou o usuário não digitou nada ou digitou espaços em branco.
     if (texto.trim() === "") {
-        return escreveAlgo()
+        alert("Por favor, escreve algo para estudar!");
+        return;
     }
 
     // CRIAÇÂO DO OBJETO DE DADOS
@@ -40,30 +80,22 @@ const adicionarEstudo = () => {
     };
 
     // Essa linha adiciona o pacote à lista na memória do computador
-    meusDados.push(novoObjeto)
-    salvarERenderizar();
+    estudosRepository.adicionar(novoObjeto)
+    carregarLista();
     input.value = ""; // Limpa o campo
     input.focus(); // Devolve o foco para digitar outro estudo
 }
 
 // A função recebe um parâmetro chamado de "posicao".
-const concluirEstudo = idProcurado => {
-    // O item que tem o ID igual ao que foi clicado é procurado
-    meusDados = meusDados.map(item => {
-        if (item.id === idProcurado) {
-            return { ...item, concluido: !item.concluido };
-        }
-        return item;
-    });
-
-    salvarERenderizar();
+const concluirEstudo = id => {
+    estudosRepository.alternarStatus(id);
+    carregarLista();
 }
 
 // A função recebe um parâmetro chamado de "posicao".
-const deletarEstudo = idProcurado => {
-    // A lista manteve todos, EXCETO o que tem o ID clicado
-    meusDados = meusDados.filter(item => item.id !== idProcurado);
-    salvarERenderizar()
+const deletarEstudo = id => {
+    estudosRepository.remover(id);
+    carregarLista();
 }
 
 // Função para recarregar o que estava salvo
@@ -72,7 +104,7 @@ function carregarLista() {
 
     // O .map vai criar um novo array apenas com os texto HTML
 
-    let itensHTML = meusDados.map((item) => {
+    let itensHTML = estudosRepository.dados.map((item) => {
 
         // Define se está riscado ou não
         let classeCss = item.concluido ? "riscado" : "";
@@ -132,3 +164,5 @@ async function carregarDadosGithub() {
         loader.style.display = "none"
     }
 }
+
+iniciarSistema();
